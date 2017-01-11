@@ -1,0 +1,22 @@
+{
+  "name": "maptalks-plugin-helpers",
+  "version": "0.1.0",
+  "description": "Helpers to build plugins for maptalks.js",
+  "author": "fuzhenn",
+  "license": "MIT",
+  "repository": "https://github.com/maptalks/maptalks-plugin-helpers",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "babel-plugin-transform-proto-to-assign": "^6.9.0",
+    "rollup": "^0.41.1",
+    "rollup-plugin-babel": "https://github.com/fuzhenn/rollup-plugin-babel.git",
+    "uglify-js": "^2.7.5",
+    "zlib": "^1.0.5"
+  },
+  "devDependencies": {
+    "mocha": "^3.2.0"
+  }
+}
