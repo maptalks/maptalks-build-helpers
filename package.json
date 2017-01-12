@@ -13,8 +13,7 @@
     "babel-plugin-transform-proto-to-assign": "^6.9.0",
     "rollup": "^0.41.1",
     "rollup-plugin-babel": "https://github.com/fuzhenn/rollup-plugin-babel.git",
-    "uglify-js": "^2.7.5",
-    "zlib": "^1.0.5"
+    "uglify-js": "^2.7.5"
   },
   "devDependencies": {
     "mocha": "^3.2.0"
