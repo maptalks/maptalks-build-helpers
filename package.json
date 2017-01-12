@@ -13,6 +13,9 @@
     "babel-plugin-transform-proto-to-assign": "^6.9.0",
     "rollup": "^0.41.1",
     "rollup-plugin-babel": "https://github.com/fuzhenn/rollup-plugin-babel.git",
+    "rollup-plugin-commonjs": "^7.0.0",
+    "rollup-plugin-local-resolve": "^1.0.7",
+    "rollup-plugin-node-resolve": "^2.0.0",
     "uglify-js": "^2.7.5"
   },
   "devDependencies": {

@@ -1,8 +1,9 @@
-'use strict';
-
 const fs = require('fs'),
     rollup = require('rollup').rollup,
     babel = require('rollup-plugin-babel'),
+    commonjs = require('rollup-plugin-commonjs'),
+    nodeResolve = require('rollup-plugin-node-resolve'),
+    localResolve = require('rollup-plugin-local-resolve'),        
     uglify = require('uglify-js').minify,
     zlib = require('zlib');
 
@@ -23,11 +24,16 @@ class BundleHelper {
             'external': [
                 'maptalks'
             ],
-            'plugins': [
+            'plugins': [                
+                localResolve(),
+                nodeResolve({
+                    jsnext: true,
+                    main: true,
+                    browser: true
+                }),
+                commonjs(),
                 babel({
-                    'plugins' : [
-                        "transform-proto-to-assign"
-                    ]
+                    plugins : ['transform-proto-to-assign']
                 })
             ],
             'sourceMap': true
