@@ -1,2 +1,2 @@
-# maptalks-plugin-helpers
-Helpers to build plugins for maptalks.js
+# maptalks-build-helpers
+Helpers to build for maptalks.js and plugins.

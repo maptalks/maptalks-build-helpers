@@ -33,15 +33,19 @@ class BundleHelper {
             'sourceMap': true
         };
         options.entry = entry;
+
         const dest = 'dist/' + this.pkg.name + '.js';
-        return rollup(options).then(bundle => bundle.write({
-                'format': 'umd',
-                'moduleName': 'maptalks',
-                'banner': this.banner,
-                'dest': dest,
-                'sourceMap': 'inline'
-            })
-        );
+        const bundleOpts = {
+            'format': 'umd',
+            'moduleName': 'maptalks',
+            'banner': this.banner,
+            'dest': dest
+        };
+
+        if (options.sourceMap || options.sourceMap === undefined) {
+            bundleOpts.sourceMap = 'inline';
+        }
+        return rollup(options).then(bundle => bundle.write(bundleOpts));
     }
 
     /**

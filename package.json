@@ -1,7 +1,7 @@
 {
   "name": "maptalks-build-helpers",
   "version": "0.1.0",
-  "description": "Helpers to build for maptalks.js and plugins dev.",
+  "description": "Helpers to build for maptalks.js and plugins.",
   "author": "fuzhenn",
   "license": "MIT",
   "repository": "https://github.com/maptalks/maptalks-build-helpers",
