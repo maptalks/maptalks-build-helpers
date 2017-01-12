@@ -20,7 +20,25 @@ class BundleHelper {
      * @param  {Object} [options=null] rollup's options
      */
     bundle(entry, options) {
-        options = options || {
+        options = options || this.getDefaultRollupConfig();
+        options.entry = entry;
+
+        const dest = 'dist/' + this.pkg.name + '.js';
+        const bundleOpts = {
+            'format': 'umd',
+            'moduleName': 'maptalks',
+            'banner': this.banner,
+            'dest': dest
+        };
+
+        if (options.sourceMap || options.sourceMap === undefined) {
+            bundleOpts.sourceMap = 'inline';
+        }
+        return rollup(options).then(bundle => bundle.write(bundleOpts));
+    }
+
+    getDefaultRollupConfig() {
+        return {
             'external': [
                 'maptalks'
             ],
@@ -38,20 +56,6 @@ class BundleHelper {
             ],
             'sourceMap': true
         };
-        options.entry = entry;
-
-        const dest = 'dist/' + this.pkg.name + '.js';
-        const bundleOpts = {
-            'format': 'umd',
-            'moduleName': 'maptalks',
-            'banner': this.banner,
-            'dest': dest
-        };
-
-        if (options.sourceMap || options.sourceMap === undefined) {
-            bundleOpts.sourceMap = 'inline';
-        }
-        return rollup(options).then(bundle => bundle.write(bundleOpts));
     }
 
     /**
