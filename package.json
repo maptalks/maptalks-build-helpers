@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "babel-plugin-transform-proto-to-assign": "^6.9.0",
+    "karma": "^1.3.0",
+    "minimist": "^1.2.0",
     "rollup": "^0.41.1",
     "rollup-plugin-babel": "https://github.com/fuzhenn/rollup-plugin-babel.git",
     "rollup-plugin-commonjs": "^7.0.0",
