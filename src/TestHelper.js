@@ -1,4 +1,3 @@
-const fs = require('fs');
 const minimist = require('minimist');
 const Server = require('karma').Server;
 
@@ -34,6 +33,10 @@ options.browsers.split(',').forEach(name => {
 module.exports = class TestHelper {
 
     test(karmaConfig) {
+        if (this.karmaServer) {
+            this.karmaServer.refreshFiles();
+            return;
+        }
         this.karmaServer = new Server(karmaConfig);
         if (browsers.length > 0) {
             karmaConfig.browsers = browsers;
@@ -46,24 +49,6 @@ module.exports = class TestHelper {
             };
         }
         this.karmaServer.start();
-    }
-
-    watchAndTest(dir, config) {
-        if (!Array.isArray(dir)) {
-            dir = [dir];
-        }
-        dir.forEach(f => {
-            fs.watch(f, { 'recursive' : true }, this._reload.bind(this));
-        });
-
-        this.test(config);
-    }
-
-    _reload() {
-        if (!this.karmaServer) {
-            return;
-        }
-        this.karmaServer.refreshFiles();
     }
 
 };
