@@ -30,10 +30,7 @@ module.exports = class BundleHelper {
             'banner': this.banner,
             'dest': dest
         };
-
-        if (options.sourceMap || options.sourceMap === undefined) {
-            bundleOpts.sourceMap = 'inline';
-        }
+        
         return rollup(options).then(bundle => bundle.write(bundleOpts));
     }
 
@@ -54,7 +51,7 @@ module.exports = class BundleHelper {
                     plugins : ['transform-proto-to-assign']
                 })
             ],
-            'sourceMap': true
+            'sourceMap': false
         };
     }
 
