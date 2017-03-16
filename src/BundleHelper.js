@@ -1,3 +1,4 @@
+'use strict';
 const fs = require('fs'),
     rollup = require('rollup').rollup,
     babel = require('rollup-plugin-babel'),
