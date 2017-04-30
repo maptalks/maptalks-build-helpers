@@ -13,6 +13,14 @@ module.exports = class BundleHelper {
         this.pkg = pkg;
         const year = new Date().getFullYear();
         this.banner = `/*!\n * ${pkg.name} v${pkg.version}\n * LICENSE : ${pkg.license}\n * (c) 2016-${year} maptalks.org\n */`;
+        let outro = pkg.name + ' v' + pkg.version;
+        if (this.pkg !== 'maptalks') {
+            if (this.pkg.peerDependencies && this.pkg.peerDependencies['maptalks']) {
+                this.banner += `\n/*!\n * requires maptalks@${pkg.peerDependencies.maptalks} \n */`;
+                outro += `, requires maptalks@${pkg.peerDependencies.maptalks}.`;
+           }
+        }
+        this.outro = `typeof console !== \'undefined\' && console.log('${outro}');`;
     }
 
     /**
@@ -21,6 +29,8 @@ module.exports = class BundleHelper {
      * @param  {Object} [options=null] rollup's options
      */
     bundle(entry, options) {
+        const pkg = this.pkg;
+
         options = options || this.getDefaultRollupConfig();
         options.entry = entry;
 
@@ -29,9 +39,10 @@ module.exports = class BundleHelper {
             'format': 'umd',
             'moduleName': 'maptalks',
             'banner': this.banner,
-            'dest': dest
+            'dest': dest,
+            'outro' : this.outro
         };
-        
+
         return rollup(options).then(bundle => bundle.write(bundleOpts));
     }
 
