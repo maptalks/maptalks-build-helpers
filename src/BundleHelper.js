@@ -55,8 +55,8 @@ module.exports = class BundleHelper {
                 localResolve(),
                 nodeResolve({
                     jsnext: true,
-                    main: true,
-                    browser: true
+                    main: true
+                    // browser: true
                 }),
                 commonjs(),
                 babel({
