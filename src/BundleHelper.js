@@ -1,7 +1,7 @@
 'use strict';
 const fs = require('fs'),
     rollup = require('rollup').rollup,
-    babel = require('rollup-plugin-babel'),
+    babel = require('maptalks-rollup-plugin-babel'),
     commonjs = require('rollup-plugin-commonjs'),
     nodeResolve = require('rollup-plugin-node-resolve'),
     localResolve = require('rollup-plugin-local-resolve'),
