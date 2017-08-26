@@ -1,10 +1,9 @@
-'use strict';
 const fs = require('fs'),
-    rollup = require('rollup').rollup,
+    rollup = require('rollup'),
     babel = require('maptalks-rollup-plugin-babel'),
     commonjs = require('rollup-plugin-commonjs'),
-    nodeResolve = require('rollup-plugin-node-resolve'),
     localResolve = require('rollup-plugin-local-resolve'),
+    nodeResolve = require('rollup-plugin-node-resolve'),
     uglify = require('uglify-js').minify,
     zlib = require('zlib');
 
@@ -18,9 +17,9 @@ module.exports = class BundleHelper {
             if (this.pkg.peerDependencies && this.pkg.peerDependencies['maptalks']) {
                 this.banner += `\n/*!\n * requires maptalks@${pkg.peerDependencies.maptalks} \n */`;
                 outro += `, requires maptalks@${pkg.peerDependencies.maptalks}.`;
-           }
+            }
         }
-        this.outro = `typeof console !== \'undefined\' && console.log('${outro}');`;
+        this.outro = `typeof console !== 'undefined' && console.log('${outro}');`;
     }
 
     /**
@@ -32,18 +31,29 @@ module.exports = class BundleHelper {
         const pkg = this.pkg;
 
         options = options || this.getDefaultRollupConfig();
-        options.entry = entry;
+        options.input = entry;
 
-        const dest = 'dist/' + this.pkg.name + '.js';
-        const bundleOpts = {
+        const umd = {
+            'sourcemap': false,
             'format': 'umd',
-            'moduleName': 'maptalks',
+            'name': 'maptalks',
             'banner': this.banner,
-            'dest': dest,
+            'file': 'dist/' + pkg.name + '.js',
             'outro' : this.outro
         };
-
-        return rollup(options).then(bundle => bundle.write(bundleOpts));
+        const es = {
+            'sourcemap': false,
+            'format': 'es',
+            'banner': this.banner,
+            'file': 'dist/' + pkg.name + '.es.js',
+            'outro' : this.outro
+        };
+        return rollup.rollup(options).then(bundle => Promise.all(
+            [
+                bundle.write(umd),
+                bundle.write(es),
+            ]
+        ));
     }
 
     getDefaultRollupConfig() {
@@ -54,6 +64,7 @@ module.exports = class BundleHelper {
             'plugins': [
                 localResolve(),
                 nodeResolve({
+                    module: true,
                     jsnext: true,
                     main: true
                     // browser: true
@@ -62,8 +73,7 @@ module.exports = class BundleHelper {
                 babel({
                     plugins : ['transform-proto-to-assign']
                 })
-            ],
-            'sourceMap': false
+            ]
         };
     }
 
@@ -75,13 +85,12 @@ module.exports = class BundleHelper {
         const name = this.pkg.name;
         const dest = 'dist/' + name + '.js';
         const code = fs.readFileSync(dest).toString('utf-8');
-        const minified = this.banner + '\n' + uglify(code, {
-            'fromString': true,
+        const u = uglify(code, {
             'output': {
-                'screw_ie8': true,
                 'ascii_only': true
             }
-        }).code;
+        });
+        const minified = this.banner + '\n' + u.code;
         fs.writeFileSync('dist/' + name + '.min.js', minified);
         const gzipped = zlib.gzipSync(minified);
         fs.writeFileSync('dist/' + name + '.min.js.gz', gzipped);
