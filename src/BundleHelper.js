@@ -67,7 +67,6 @@ module.exports = class BundleHelper {
                     module: true,
                     jsnext: true,
                     main: true
-                    // browser: true
                 }),
                 commonjs(),
                 babel({
