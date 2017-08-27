@@ -10,6 +10,7 @@
     "test": "mocha"
   },
   "dependencies": {
+    "babel-core": "^6.26.0",
     "babel-plugin-transform-proto-to-assign": "^6.26.0",
     "karma": "^1.7.0",
     "maptalks-rollup-plugin-babel": "^3.0.2",
