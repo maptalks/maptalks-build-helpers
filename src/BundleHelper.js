@@ -34,6 +34,7 @@ module.exports = class BundleHelper {
         options.input = entry;
 
         const umd = {
+            'extend' : true,
             'sourcemap': false,
             'format': 'umd',
             'name': 'maptalks',
