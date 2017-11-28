@@ -37,6 +37,9 @@ module.exports = class BundleHelper {
             'extend' : true,
             'sourcemap': false,
             'format': 'umd',
+            'globals' : {
+                'maptalks' : 'maptalks'
+            },
             'name': 'maptalks',
             'banner': this.banner,
             'file': 'dist/' + pkg.name + '.js',
@@ -45,6 +48,9 @@ module.exports = class BundleHelper {
         const es = {
             'sourcemap': false,
             'format': 'es',
+            'globals' : {
+                'maptalks' : 'maptalks'
+            },
             'banner': this.banner,
             'file': 'dist/' + pkg.name + '.es.js',
             'outro' : this.outro
