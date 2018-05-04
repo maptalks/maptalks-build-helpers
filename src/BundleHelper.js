@@ -52,7 +52,7 @@ module.exports = class BundleHelper {
                 'maptalks' : 'maptalks'
             },
             'banner': this.banner,
-            'file': 'dist/' + pkg.name + '.es.js',
+            'file': 'dist/' + pkg.name + '.mjs',
             'outro' : this.outro
         };
         return rollup.rollup(options).then(bundle => Promise.all(
