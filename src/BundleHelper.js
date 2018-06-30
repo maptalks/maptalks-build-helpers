@@ -1,6 +1,6 @@
 const fs = require('fs'),
     rollup = require('rollup'),
-    babel = require('maptalks-rollup-plugin-babel'),
+    babel = require('rollup-plugin-babel'),
     commonjs = require('rollup-plugin-commonjs'),
     localResolve = require('rollup-plugin-local-resolve'),
     nodeResolve = require('rollup-plugin-node-resolve'),
